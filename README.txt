@@ -1,4 +1,3 @@
-
 [deathtouch]: ## "Any creature dealt a nonzero amount of damage by a source with deathtouch is destroyed, regardless of that creature's toughness"
 
 
