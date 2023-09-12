@@ -3,6 +3,7 @@
 
 
 This is a keyword: [deathtouch][deathtouch].
+This is a keyword: [deathtouch]([deathtouch]).
 Hello world!
 
 Hello!
