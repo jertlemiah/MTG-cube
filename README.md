@@ -1,8 +1,8 @@
 
-[id1]: ## "your hover text"
-This is a [hover text][id1] example.
+[deathtouch]: ## "Any creature dealt a nonzero amount of damage by a source with deathtouch is destroyed, regardless of that creature's toughness"
 
-This is a [hover text](## "your hover text") example.
+
+This is a keyword: [deathtouch][deathtouch].
 Hello world!
 
 Hello!
