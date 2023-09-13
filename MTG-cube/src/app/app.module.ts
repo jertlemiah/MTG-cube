@@ -7,6 +7,7 @@ import { CurveFittingComponent } from './curve-fitting/curve-fitting.component';
 import { AppRoutingModule } from './app-routing.module';
 import { GoogleChartsModule } from 'angular-google-charts';
 import { BarChartComponent } from './bar-chart/bar-chart.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [

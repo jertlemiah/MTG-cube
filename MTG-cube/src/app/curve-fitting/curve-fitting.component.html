@@ -30,28 +30,27 @@ The fewer colors you have, the more consistent your deck will be because you wil
 <p>
     So it will look a bit like this:
 </p>
-<!-- <img class="limited-manacurve" src="assets/images/limited manacurve.png"> -->
-
-<!-- <google-chart #chart
-[title]="'Hello'"
-[type]="BarChart"
-[data]="myData"
-[columns]="chartColumns"
-
->
-
-</google-chart> -->
 <div >
     <app-bar-chart 
-        [data] = myData
-        [columnNames]=columnNames
-        
+        [data] = deckManacurveData
+        [columnNames]=deckManacurveColumnNames
+        [options]=deckManacurveOptions
         >
     </app-bar-chart>
 </div>
-
 <p>
-    A 40 Magic deck should roughly follow :
+    While the cube's manacurve looks like this:
+</p>
+<div >
+    <app-bar-chart 
+        [data] = deckManacurveData
+        [columnNames]=deckManacurveColumnNames
+        [options]=deckManacurveOptions
+        >
+    </app-bar-chart>
+</div>
+<p>
+    Additionally, a 40 Magic deck should roughly follow :
 </p>
 <ul>
     <li>
@@ -64,19 +63,14 @@ The fewer colors you have, the more consistent your deck will be because you wil
         Twice as many creatures as non-creatures (so 15ish creatures, 7ish non-creatures)
     </li>
 </ul>
+<p>
+    Every deck will be different though, so it’s okay to use different numbers as long as you have a plan.
+</p>
 The 
 
-Every deck will be different though, so it’s okay to use different numbers as long as you have a plan.
 
 NOTE: Pure aggro is very difficult in a cube, and I would recommend against it. Mid-range decks are typically going to give the best results.
 
 On the next page, I have included a graph of the mana curve of the total cube just to show that it roughly follows the ideal curve.
 
 
-Why Curve Fitting Works
-The simple answer is that I have personally designed the cube, hand-selecting every single card and trimming any cards that aren’t good enough.
-I have tried to make sure that cards within a color are cohesive while following the ideal mana curve and still enabling synergies that span over 2 or 3 colors.
-This strategy becomes even more powerful when you:
-Use BREAD to help you select cards
-Learn the Archetypes in the cube
-An Archetype is basically a deck within the cube. It’s a series of cards that work together to form a cohesive strategy. There are 5-ish main Archetypes, but even more synergies between just a handful of cards
