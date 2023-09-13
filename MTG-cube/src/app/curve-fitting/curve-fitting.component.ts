@@ -1,12 +1,19 @@
-import { Component } from '@angular/core';
-declare var google: any;
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+// imprt {G}
+// import { GoogleSheetsDbService } from 'ng-google-sheets-db';
+// declare var google: any;
 
 @Component({
   selector: 'app-curve-fitting',
   templateUrl: './curve-fitting.component.html',
   styleUrls: ['./curve-fitting.component.css']
 })
-export class CurveFittingComponent {
+export class CurveFittingComponent implements OnInit {
+  cubeData$: Observable<any>;
+
+  // constructor(private googleSheetsDbService: GoogleSheetsDbService) { }
+
   deckManacurveColumnNames = [{label: 'Name', type: 'string'},
     {label: 'Count', type: 'number'},
     { role: 'annotation' },
@@ -53,4 +60,33 @@ export class CurveFittingComponent {
     'chartArea': {'width': '100%', 'height': '80%'},
     
   };   
+  //https://docs.google.com/spreadsheets/d/1OUifd8P63Is-UhSTcnf5_fLXqwnIoEgaqKSS5uzi4Ko/edit?usp=sharing
+  ngOnInit(): void {
+    //https://docs.google.com/spreadsheets/d/e/2PACX-1vSG4fYJt5FirDhBDZk7io8e2NQP5KMrgkcRqFsOP0CvfEgy3U3RmO_sFZL0Dil2W9YfOfJd9vkqpMhQ/pub?gid=1717074130&single=true&output=csv
+    var id = "2PACX-1vSG4fYJt5FirDhBDZk7io8e2NQP5KMrgkcRqFsOP0CvfEgy3U3RmO_sFZL0Dil2W9YfOfJd9vkqpMhQ";
+    var sheetName = "CubeManacurve";
+    // var queryString = encodeURIComponent('SELECT A, H, O, Q, R, U LIMIT 5 OFFSET 8');
+
+    // var query = new google.visualization.Query(
+    //         'https://docs.google.com/spreadsheets/d/1OUifd8P63Is-UhSTcnf5_fLXqwnIoEgaqKSS5uzi4Ko/edit#gid=1717074130=' + queryString);
+    // query.send(this.handleSampleDataQueryResponse);
+    this.cubeData$ = this.googleSheetsDbService.getActive<>(
+      id,
+      sheetName,
+
+    )
+  }
+
+  // handleSampleDataQueryResponse(response: { isError: () => any; getMessage: () => string; getDetailedMessage: () => string; getDataTable: () => any; }) {
+  //   if (response.isError()) {
+  //     alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+  //     return;
+  //   }
+
+  //   var data = response.getDataTable();
+  //   var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+  //   chart.draw(data, { height: 400 });
+  // }
+
+
 }
