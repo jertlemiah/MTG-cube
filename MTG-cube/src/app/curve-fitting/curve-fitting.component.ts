@@ -1,18 +1,63 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 // imprt {G}
 // import { GoogleSheetsDbService } from 'ng-google-sheets-db';
 // declare var google: any;
+import { GoogleDriveProvider } from 'app/providers/google-drive-provider.service';
 
 @Component({
   selector: 'app-curve-fitting',
   templateUrl: './curve-fitting.component.html',
-  styleUrls: ['./curve-fitting.component.css']
+  styleUrls: ['./curve-fitting.component.css'],
+  providers: [GoogleDriveProvider]
 })
-export class CurveFittingComponent implements OnInit {
-  cubeData$: Observable<any>;
+export class CurveFittingComponent implements OnInit, AfterViewInit {
+  // cubeData$: Observable<any>;
+  dataId: string;
+  cubeData: any;
+  // cubeDataLoaded: Promise<boolean>;
 
-  // constructor(private googleSheetsDbService: GoogleSheetsDbService) { }
+  ngAfterViewInit(): void {
+    // var data = new google.visualization.DataTable();
+    // data.addColumn('string', 'Label');
+    // data.addColumn('string', 'White');
+    // data.addColumn('string', 'Blue');
+    // data.addColumn('string', 'Black');
+    // data.addColumn('string', 'Red');
+    // data.addColumn('string', 'Green');
+    // data.addColumn('string', 'Colorless');
+    // data.addRow([
+    //   "0-1",
+    //   "10",
+    //   "13",
+    //   "14",
+    //   "19",
+    //   "12",
+    //   "1"
+    // ]);
+
+    // this.cubeData = data;
+  }
+
+  constructor( gDrive: GoogleDriveProvider ) {
+    // https://docs.google.com/spreadsheets/d/e/2PACX-1vSG4fYJt5FirDhBDZk7io8e2NQP5KMrgkcRqFsOP0CvfEgy3U3RmO_sFZL0Dil2W9YfOfJd9vkqpMhQ/pubhtml
+    this.dataId = '1OUifd8P63Is-UhSTcnf5_fLXqwnIoEgaqKSS5uzi4Ko';
+
+    
+    // this.cubeDataLoaded = Promise.resolve(false);
+    // this.dataId = '2PACX-1vSG4fYJt5FirDhBDZk7io8e2NQP5KMrgkcRqFsOP0CvfEgy3U3RmO_sFZL0Dil2W9YfOfJd9vkqpMhQ';
+    gDrive.load( this.dataId )
+      .then( ( data ) => {
+        console.log("data in component: ");
+        console.log(data );
+        this.cubeData = data;
+      }, (error) => {
+        console.log( error );
+      });
+  }
+
+
+
 
   deckManacurveColumnNames = [{label: 'Name', type: 'string'},
     {label: 'Count', type: 'number'},
@@ -62,19 +107,19 @@ export class CurveFittingComponent implements OnInit {
   };   
   //https://docs.google.com/spreadsheets/d/1OUifd8P63Is-UhSTcnf5_fLXqwnIoEgaqKSS5uzi4Ko/edit?usp=sharing
   ngOnInit(): void {
-    //https://docs.google.com/spreadsheets/d/e/2PACX-1vSG4fYJt5FirDhBDZk7io8e2NQP5KMrgkcRqFsOP0CvfEgy3U3RmO_sFZL0Dil2W9YfOfJd9vkqpMhQ/pub?gid=1717074130&single=true&output=csv
-    var id = "2PACX-1vSG4fYJt5FirDhBDZk7io8e2NQP5KMrgkcRqFsOP0CvfEgy3U3RmO_sFZL0Dil2W9YfOfJd9vkqpMhQ";
-    var sheetName = "CubeManacurve";
-    // var queryString = encodeURIComponent('SELECT A, H, O, Q, R, U LIMIT 5 OFFSET 8');
+    // //https://docs.google.com/spreadsheets/d/e/2PACX-1vSG4fYJt5FirDhBDZk7io8e2NQP5KMrgkcRqFsOP0CvfEgy3U3RmO_sFZL0Dil2W9YfOfJd9vkqpMhQ/pub?gid=1717074130&single=true&output=csv
+    // var id = "2PACX-1vSG4fYJt5FirDhBDZk7io8e2NQP5KMrgkcRqFsOP0CvfEgy3U3RmO_sFZL0Dil2W9YfOfJd9vkqpMhQ";
+    // var sheetName = "CubeManacurve";
+    // // var queryString = encodeURIComponent('SELECT A, H, O, Q, R, U LIMIT 5 OFFSET 8');
 
-    // var query = new google.visualization.Query(
-    //         'https://docs.google.com/spreadsheets/d/1OUifd8P63Is-UhSTcnf5_fLXqwnIoEgaqKSS5uzi4Ko/edit#gid=1717074130=' + queryString);
-    // query.send(this.handleSampleDataQueryResponse);
-    this.cubeData$ = this.googleSheetsDbService.getActive<>(
-      id,
-      sheetName,
+    // // var query = new google.visualization.Query(
+    // //         'https://docs.google.com/spreadsheets/d/1OUifd8P63Is-UhSTcnf5_fLXqwnIoEgaqKSS5uzi4Ko/edit#gid=1717074130=' + queryString);
+    // // query.send(this.handleSampleDataQueryResponse);
+    // this.cubeData$ = this.googleSheetsDbService.getActive<>(
+    //   id,
+    //   sheetName,
 
-    )
+    // )
   }
 
   // handleSampleDataQueryResponse(response: { isError: () => any; getMessage: () => string; getDetailedMessage: () => string; getDataTable: () => any; }) {
