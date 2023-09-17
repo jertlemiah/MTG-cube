@@ -4,7 +4,7 @@ import { BreadsComponent } from './breads/breads.component';
 import { CurveFittingComponent } from './curve-fitting/curve-fitting.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full'},
+  { path: '', redirectTo: '', pathMatch: 'full'},
   { path: 'breads', component: BreadsComponent},
   { path: 'curve-fitting', component: CurveFittingComponent},
 ];

@@ -2,8 +2,9 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 // imprt {G}
 // import { GoogleSheetsDbService } from 'ng-google-sheets-db';
-// declare var google: any;
+declare var google: any;
 import { GoogleDriveProvider } from 'app/providers/google-drive-provider.service';
+import { GoogleApis } from 'googleapis';
 
 @Component({
   selector: 'app-curve-fitting',
@@ -15,34 +16,34 @@ export class CurveFittingComponent implements OnInit, AfterViewInit {
   // cubeData$: Observable<any>;
   dataId: string;
   cubeData: any;
-  // cubeDataLoaded: Promise<boolean>;
+  cubeDataLoaded: Promise<boolean> | undefined;
 
   ngAfterViewInit(): void {
-    // var data = new google.visualization.DataTable();
-    // data.addColumn('string', 'Label');
-    // data.addColumn('string', 'White');
-    // data.addColumn('string', 'Blue');
-    // data.addColumn('string', 'Black');
-    // data.addColumn('string', 'Red');
-    // data.addColumn('string', 'Green');
-    // data.addColumn('string', 'Colorless');
-    // data.addRow([
-    //   "0-1",
-    //   "10",
-    //   "13",
-    //   "14",
-    //   "19",
-    //   "12",
-    //   "1"
-    // ]);
-
-    // this.cubeData = data;
+    
   }
 
   constructor( gDrive: GoogleDriveProvider ) {
     // https://docs.google.com/spreadsheets/d/e/2PACX-1vSG4fYJt5FirDhBDZk7io8e2NQP5KMrgkcRqFsOP0CvfEgy3U3RmO_sFZL0Dil2W9YfOfJd9vkqpMhQ/pubhtml
     this.dataId = '1OUifd8P63Is-UhSTcnf5_fLXqwnIoEgaqKSS5uzi4Ko';
 
+    // var data = new google.visualization.DataTable();
+    //   data.addColumn('string', 'Label');
+    //   data.addColumn('string', 'White');
+    //   data.addColumn('string', 'Blue');
+    //   data.addColumn('string', 'Black');
+    //   data.addColumn('string', 'Red');
+    //   data.addColumn('string', 'Green');
+    //   data.addColumn('string', 'Colorless');
+    //   data.addRow([
+    //     "0-1",
+    //     "10",
+    //     "13",
+    //     "14",
+    //     "19",
+    //     "12",
+    //     "1"
+    //   ]);
+    
     
     // this.cubeDataLoaded = Promise.resolve(false);
     // this.dataId = '2PACX-1vSG4fYJt5FirDhBDZk7io8e2NQP5KMrgkcRqFsOP0CvfEgy3U3RmO_sFZL0Dil2W9YfOfJd9vkqpMhQ';
@@ -51,15 +52,85 @@ export class CurveFittingComponent implements OnInit, AfterViewInit {
         console.log("data in component: ");
         console.log(data );
         this.cubeData = data;
+        
+        // this.cubeData = google.visualization.arrayToDataTable([
+        //   ['Year', 'Sales', 'Expenses', 'Profit'],
+        //   ['2014', 1000, 400, 200],
+        //   ['2015', 1170, 460, 250],
+        //   ['2016', 660, 1120, 300],
+        //   ['2017', 1030, 540, 350]
+        // ]);
+        this.cubeDataLoaded = Promise.resolve(true);
+
       }, (error) => {
         console.log( error );
+        this.cubeDataLoaded = Promise.resolve(false);
       });
   }
 
+  cubeManacurveOptions = {  
+    vAxis: { 
+      // title: 'Card Count',
+      gridlines: { count: 0 },
+      // viewWindowMode:'maximize',
+      //         viewWindow:{
+      //           min:0
+      //         },
+              // textPosition: 'none'       
+    },
+    hAxis: {
+      title: 'Mana Value',
+      
+    },
+
+    // colors: ['#404040'],
+    annotations: {
+      alwaysOutside: false,
+      textStyle: {
+        fontSize: 30,
+        color: '#000',
+        auraColor: 'none'
+      }
+    },
+    // legend: { position: "none" },
+    // bar: {groupWidth: "95%"},
+    titleTextStyle: {
+      bold:true
+    },
+    // 'chartArea': {'width': '100%', 'height': '80%'},
+    
+  }; 
 
 
+    // this.cubeData = data;
+    cubeColumnNames = [
+      {label: 'Label', type: 'string'},
+      {label: 'White', type: 'number'},
+      {label: 'Blue', type: 'number'},
+      {label: 'Black', type: 'number'},
+      {label: 'Red', type: 'number'},
+      {label: 'Green', type: 'number'},
+      {label: 'Colorless', type: 'number'},
+    ];
+    cubeData2 = [[
+          "0-1",
+          10,
+          13,
+          14,
+          19,
+          12,
+          1
+        ]];
+    // cubeData2 = [
+    //   ['2014', 1000, 400, 200],
+    //   ['2015', 1170, 460, 250],
+    //   ['2016', 660, 1120, 300],
+    //   ['2017', 1030, 540, 350]
+    // ]
 
-  deckManacurveColumnNames = [{label: 'Name', type: 'string'},
+
+  deckManacurveColumnNames = [
+    {label: 'Name', type: 'string'},
     {label: 'Count', type: 'number'},
     { role: 'annotation' },
     {role: 'tooltip'}

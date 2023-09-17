@@ -78,13 +78,6 @@ export class GoogleDriveProvider {
       // We're using Angular Http provider to request the data,
       // then on the response it'll map the JSON data to a parsed JS object.
       // Next we process the data and resolve the promise with the new data.
-      // this.http.post<Response>('http://localhost:8080/createEmployee', body.toString(), options)
-      // .subscribe(response => {
-      //     console.log(response.status);
-      //     console.log(response.message);
-      // });
-
-
       this.http.get(url)
         .pipe(map(
           (response: any) => {
@@ -98,9 +91,10 @@ export class GoogleDriveProvider {
           // this.data = data.feed.entry;
           this.data = rawData.values;
           
-          let returnArray: Array<any> = rawData.values;
+          // let returnArray: Array<any> = rawData.values;
 
           var data = new google.visualization.DataTable();
+          var dataArr = new Array();
 
           console.log( 'this.data.length', this.data.length );
           if( this.data && this.data.length > 0 ) {
@@ -111,20 +105,41 @@ export class GoogleDriveProvider {
               if (data.getNumberOfColumns() == 0)
               {
                 entry.forEach((label: string) => {
-                  // console.log( 'adding column', label.toString() );
-                  data.addColumn('string', label.toString());
-                });               
+                  if (data.getNumberOfColumns() == 0)
+                  {
+                    data.addColumn('string', label.toString());
+                  }
+                  else 
+                  {
+                    data.addColumn('number', label.toString());
+                  }
+                  console.log( 'adding column', label.toString() );
+                  // data.addColumn('string', label.toString());
+                });          
+                console.log( 'data', data );     
               }
               else
               {
-                data.addRow(entry);
+                // console.log("entry.slice(1)" + entry.slice(1).map((i: any)=>Number(i)));
+                // console.log( 'entry[0]', entry[0] );
+                // // let arr1 = [entry[0]]
+                // // entry = arr1.concat();
+                // console.log( '[entry[0], Array(entry.slice(1).map((i: any)=>Number(i)))]', [entry[0]].concat(entry.slice(1).map((i: any)=>Number(i))) );
+                var row = [entry[0]].concat(entry.slice(1).map((i: any)=>Number(i)));
+                data.addRow(row);
+                dataArr.push(row)
+                // console.log( 'data', data );
               }
             });
           }
-          console.log( 'Data', data );
-          resolve(data);
+          // data = data.slice(1);
+          console.log( 'dataArr', dataArr );
+          resolve(dataArr);
         });
       });
+
+
+      
     // return this.http.get(url)
     //   .pipe(
     //     map((res: any) => {

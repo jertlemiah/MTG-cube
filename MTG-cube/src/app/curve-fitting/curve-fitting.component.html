@@ -41,11 +41,11 @@ The fewer colors you have, the more consistent your deck will be because you wil
 <p>
     While the cube's manacurve looks like this:
 </p>
-<div >
+<div *ngIf="cubeDataLoaded">
     <app-bar-chart 
         [data] = cubeData
-        [columnNames]=deckManacurveColumnNames
-        [options]=deckManacurveOptions
+        [columnNames]=cubeColumnNames
+        [options]=cubeManacurveOptions
         >
     </app-bar-chart>
 </div>
