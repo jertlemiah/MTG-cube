@@ -43,11 +43,9 @@ import { GoogleApis } from 'googleapis';
 export class GoogleDriveProvider {
   data: any = null;
 
-  constructor(public http: HttpClient) {}
+  constructor(public http: HttpClient) {} 
 
-  
-
-  load( id: string ) {
+  load() {
     if (this.data) {
       // already loaded data
       return Promise.resolve(this.data);
@@ -55,23 +53,8 @@ export class GoogleDriveProvider {
     var apiKey = 'AIzaSyBZz744YekYkWsJQmZLHBv2RNhaBiqRTXc';
     var sheetid = '1OUifd8P63Is-UhSTcnf5_fLXqwnIoEgaqKSS5uzi4Ko';
 
-    // var url = 'https://spreadsheets.google.com/feeds/list/${id}/od6/public/values?alt=json'; 
-    // https://docs.google.com/spreadsheets/d/1OUifd8P63Is-UhSTcnf5_fLXqwnIoEgaqKSS5uzi4Ko/edit?usp=sharing
-    // var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSG4fYJt5FirDhBDZk7io8e2NQP5KMrgkcRqFsOP0CvfEgy3U3RmO_sFZL0Dil2W9YfOfJd9vkqpMhQ/pubhtml';
-    // https://docs.google.com/spreadsheets/d/1OUifd8P63Is-UhSTcnf5_fLXqwnIoEgaqKSS5uzi4Ko/edit?usp=sharing
-    //https://docs.google.com/spreadsheets/d/1OUifd8P63Is-UhSTcnf5_fLXqwnIoEgaqKSS5uzi4Ko/edit?usp=sharing
-    //1OUifd8P63Is-UhSTcnf5_fLXqwnIoEgaqKSS5uzi4Ko
-    
-    // var url = 'https://spreadsheets.google.com/feeds/worksheets/1OUifd8P63Is-UhSTcnf5_fLXqwnIoEgaqKSS5uzi4Ko/public/full?alt=json';
-    //var url = 'https://spreadsheets.google.com/feeds/list/1OUifd8P63Is-UhSTcnf5_fLXqwnIoEgaqKSS5uzi4Ko/public/full';
-    // var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSG4fYJt5FirDhBDZk7io8e2NQP5KMrgkcRqFsOP0CvfEgy3U3RmO_sFZL0Dil2W9YfOfJd9vkqpMhQ/pubhtml?gid=1717074130&single=true';
-     
-    // jeremiah-mtg-cube@western-cascade-277002.iam.gserviceaccount.com
-    var url = 'https://sheets.googleapis.com/v4/spreadsheets/1OUifd8P63Is-UhSTcnf5_fLXqwnIoEgaqKSS5uzi4Ko/CubeManacurve';
-    // var url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetid}/values/CubeManacurve!A1%3AF20?key=${apiKey}`
-    var url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetid}/values/CubeManacurve?key=${apiKey}`
-    // https://spreadsheets.google.com/feeds/worksheets/1OUifd8P63Is-UhSTcnf5_fLXqwnIoEgaqKSS5uzi4Ko/private/full
-    
+    // var url = 'https://sheets.googleapis.com/v4/spreadsheets/1OUifd8P63Is-UhSTcnf5_fLXqwnIoEgaqKSS5uzi4Ko/CubeManacurve';
+    var url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetid}/values/CubeManacurve?key=${apiKey}`   
     
     // don't have the data yet
     return new Promise(resolve => {
@@ -87,21 +70,15 @@ export class GoogleDriveProvider {
           }
           ))
         .subscribe( rawData => {
-          console.log( 'Raw Data', rawData );
-          // this.data = data.feed.entry;
+          // console.log( 'Raw Data', rawData );
           this.data = rawData.values;
-          
-          // let returnArray: Array<any> = rawData.values;
 
           var data = new google.visualization.DataTable();
           var dataArr = new Array();
 
-          console.log( 'this.data.length', this.data.length );
           if( this.data && this.data.length > 0 ) {
             this.data.forEach( ( entry: any, index:any ) => {
               
-              var obj = {};
-              console.log( 'entry', entry );
               if (data.getNumberOfColumns() == 0)
               {
                 entry.forEach((label: string) => {
@@ -113,54 +90,19 @@ export class GoogleDriveProvider {
                   {
                     data.addColumn('number', label.toString());
                   }
-                  console.log( 'adding column', label.toString() );
-                  // data.addColumn('string', label.toString());
-                });          
-                console.log( 'data', data );     
+                });            
               }
               else
               {
-                // console.log("entry.slice(1)" + entry.slice(1).map((i: any)=>Number(i)));
-                // console.log( 'entry[0]', entry[0] );
-                // // let arr1 = [entry[0]]
-                // // entry = arr1.concat();
-                // console.log( '[entry[0], Array(entry.slice(1).map((i: any)=>Number(i)))]', [entry[0]].concat(entry.slice(1).map((i: any)=>Number(i))) );
                 var row = [entry[0]].concat(entry.slice(1).map((i: any)=>Number(i)));
                 data.addRow(row);
                 dataArr.push(row)
-                // console.log( 'data', data );
               }
             });
           }
-          // data = data.slice(1);
-          console.log( 'dataArr', dataArr );
+
           resolve(dataArr);
         });
       });
-
-
-      
-    // return this.http.get(url)
-    //   .pipe(
-    //     map((res: any) => {
-    //       const data = res.feed.entry;
-
-    //       const returnArray: Array<any> = [];
-    //       if (data && data.length > 0) {
-    //         data.forEach(entry => {
-    //           const obj = {};
-    //           for (const x in entry) {
-    //             if (x.includes('gsx$') && entry[x].$t) {
-    //               obj[x.split('$')[1]] = entry[x]['$t'];
-    //             }
-    //           }
-    //           returnArray.push(obj);
-    //         });
-    //       }
-    //       return returnArray;
-    //     })
-    //   );
-    //});
-
   }
 }

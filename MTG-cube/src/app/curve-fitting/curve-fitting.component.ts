@@ -47,7 +47,7 @@ export class CurveFittingComponent implements OnInit, AfterViewInit {
     
     // this.cubeDataLoaded = Promise.resolve(false);
     // this.dataId = '2PACX-1vSG4fYJt5FirDhBDZk7io8e2NQP5KMrgkcRqFsOP0CvfEgy3U3RmO_sFZL0Dil2W9YfOfJd9vkqpMhQ';
-    gDrive.load( this.dataId )
+    gDrive.load()
       .then( ( data ) => {
         console.log("data in component: ");
         console.log(data );
