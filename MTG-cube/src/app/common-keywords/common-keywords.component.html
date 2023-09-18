@@ -1,1 +1,163 @@
-<p>common-keywords works!</p>
+<h1><u>“EVERGREEN”  KEYWORDS</u></h1>
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->  
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <!-- Type Column -->
+    <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef> Status </th>
+        <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+    </ng-container>
+
+    <!-- Type Column -->
+    <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef> Type </th>
+        <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+      </ng-container>
+  
+    <!-- Definition Column -->
+    <ng-container matColumnDef="definition">
+      <th mat-header-cell *matHeaderCellDef> Definition </th>
+      <td mat-cell *matCellDef="let element"> {{element.definition}} </td>
+    </ng-container>
+  
+    <!-- Link Column -->
+    <ng-container matColumnDef="link">
+      <th mat-header-cell *matHeaderCellDef>Wiki Link </th>
+      <td mat-cell *matCellDef="let element" > <a href={{element.link}}>{{element.name}} rules</a> </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+<p>
+    <a href="{{this.keywordDict.get('Deathtouch')?.link}}">{{this.keywordDict.get('Deathtouch')?.name}}</a>
+    <br>
+    The “evergreen keywords” makes up a list of keywords that essentially every Magic The Gathering player is expected to understand. There are dozens more keywords, many of which are specific to certain sets, but they are not as important as this list. Additionally, there are some below that have been since removed from the official list or never even added in the first place.
+    Deathtouch
+    Static
+    Any creature dealt a nonzero amount of damage by a source with deathtouch is destroyed, regardless of that creature's toughness
+    Defender
+    Static
+    A creature with defender cannot attack
+    Double strike
+    Static
+    A creature with double strike deals both first strike and normal combat damage
+    See first strike below
+    Crew X
+    Activated
+    Crew is an activated ability of Vehicle cards. “Crew X” means “Tap any number of untapped creatures you control with total power X or greater: This permanent becomes an artifact creature until end of turn.”
+    Enchant
+    On cast
+    An aura, a subtype of enchantments, enters the battlefield attached to a permanent of a specified type, giving the enchanted permanent access to the text on the enchantment card.
+    
+    If the enchanted permanent ceases to be a valid target, then the aura is removed from play. I.e. if a aura card has “Enchant Forest” and the permanent stops being a Forest and becomes an Island, then the aura is removed
+    Equip
+    Activated
+    Equipment, a subtype of artifacts, can be equipped to a creature at sorcery speed using the equip cost, giving the equipped creature access to the text on the artifact card. 
+    First strike
+    Static
+    A creature with first strike deals damage before normal combat damage. If a creature with first strike deals enough damage to kill an opposing creature without first strike during combat, it will not suffer the damage of the opposing creature.
+    
+    Also, in regards to fighting a creature with first strike:
+    701.10d The damage dealt when a creature fights is not combat damage.
+    702.7a First strike is a static ability that modifies the rules for the combat damage step.
+    Flash
+    On cast
+    A card with flash  can be played at any time an instant could be cast.
+    Flying
+    Static
+    A creature with flying can’t be blocked except by creatures with flying or reach
+    Haste
+    Static
+    A creature with haste is able to attack and use abilities that involve the tap symbol on the turn a player gains control of it, i.e. the turn the creature is cast
+    Hexproof
+    Static
+    A permanent with hexproof cannot be the target of spells or abilities controlled by the opponents of the creature’s owner
+    Indestructible
+    Static
+    A permanent with indestructible cannot be destroyed by effects that say “destroy” or by lethal damage. Creatures with indestructible can still be killed with effects that give a toughness of zero or less. Additionally, permanents with indestructible can still be sacrificed by it’s controller, if prompted to.
+    Lifelink
+    Static
+    702.15b Damage dealt by a source with lifelink causes that source’s controller to gain that much life
+    Menace
+    Static
+    A creature with menace cannot be blocked except by two or more creatures
+    Prowess
+    Triggered
+    A creature with prowess gains +1/+1 until end of turn whenever a noncreature spell is cast by its controller
+    Reach
+    Static
+    A creature with reach can block creatures with flying
+    Scry
+    Activated/ Triggered/on cast
+    To scry X, a player looks at the top X cards of his or her library, then puts any number of them on the bottom of their library and the rest on top in any order
+    Trample
+    Static
+    A creature with trample deals “excess” damage to the defending player if the creature is blocked and has dealt enough damage to kill the defending creature
+    
+    If the defending creature is removed after the block is made, the attacking creature deals its full attack to the defending player
+    
+    If the attacking creature has deathtouch, only a single point of damage is used on each blocking creature
+    Vigilance
+    Static
+    A creature with vigilance does not tap when attacking
+    
+    
+    
+    KEYWORD ACTIONS, ETC
+    These keyword actions are not actually keywords, but are important concepts that every Magic the Gathering player should understand.
+    +1/+1 Counters
+    
+    Also,
+    -1/-1 Counters
+    Many spells or abilities can place +1/+1 counters on a creature, which simply buff that creature’s power/toughness by +1/+1. -1/-1 counters reduce the creature’s power/toughness by -1/-1 instead.
+    I.e. if a [1/1] creature has 3 +1/+1 counters, then it is effectively a [4/4] 
+    
+    Counters are not removed at the cleanup step and will continue to exist until they are removed by a spell or ability or until the permanent they correspond to is removed. This means that if a permanent temporarily becomes a creature and acquires +1/+1 counters, the counters would remain on the card even if it is no longer a creature.
+    Attach
+    The term attach is used on cards that can provide effects to certain other cards, particularly Auras and Equipment. See equip and enchant.
+    Counter (verb)
+    To counter a spell or ability is to remove it from the stack without resolving its effects, thus putting the card directly into its owner’s graveyard or rendering an activated ability useless. A spell can either be countered by another spell (a “counterspell”), by an ability, or by game rules if the spell no longer has any legal targets i.e. destroying the creature a buff spell targeted.
+    Counter (noun)
+    A counter is simply a marker that keeps count of something, such as +1/+1 counters, charge counters, loyalty counters, etc. 
+    
+    Counters are not removed at the cleanup step and will continue to exist until they are removed by a spell or ability or until the permanent they correspond to is removed. Again, this means that if a permanent temporarily becomes a creature and acquires +1/+1 counters, the counters would remain on the card even if it is no longer a creature.
+    Discard
+    To discard a card is put it into the graveyard from a player’s hand.
+    Exile
+    To exile a card is to put it into the exile zone.
+    “Enters the battlefield”
+    This common phrase corresponds to when the permanent in question is actually put onto the battlefield regardless of the method that brought it there, meaning that the card does not have to be cast from a player’s hand for the triggered ability to trigger.
+    Fight
+    When two creatures fight each other, each creature deals damage equal to its power to the other creature.
+    
+    Also, in regards to fighting a creature with first strike:
+    701.10d The damage dealt when a creature fights is not combat damage.
+    702.7a First strike is a static ability that modifies the rules for the combat damage step.
+    Regenerate
+    When a permanent is regenerated, the next time that permanent would be destroyed, instead (if applicable) all damage is removed from it, it is removed from combat, and it is tapped.
+    “Return to Hand”
+    Sometimes a piece of game text will read “return target permanent to its owner’s hand,” which means to simply return the permanent from one zone, usually the battlefield or graveyard, to the hand of the player WHO OWNS THE CARD, NOT the player who is currently in possession of that permanent.
+    
+    Cards that read “return target spell to its owner’s hand” move the target spell from the stack back to the hand of the owner of the spell, essentially countering the spell. There is an exception however: if a spell was cast from a graveyard or from exile and another ability would return it to the player’s hand, that spell would instead go to exile. 
+    Sacrifice
+    To sacrifice a permanent is to put it into its owner’s graveyard. A player may only sacrifice a permanent he controls it and only if prompted by a spell or ability. Permanents with indestructible, hexproof, or shroud do not make that permanent immune to sacrifice, and hence are still valid targets to sacrifice.
+    Tap/Untap
+    To tap a permanent is to rotate the card 90 degrees, indicating that it is being used in some way, i.e. combat, as a cost, etc. A tapped permanent cannot be used to pay a tap cost and a tapped creature cannot participate in combat. Creatures a player controls that have not been under his control since the beginning of his most recent turn have “summoning sickness” and thus cannot be tapped for their abilities that include the “tap symbol,” nor can they attack, but they can be tapped for costs of other cards that use the word tap.
+    
+    To untap a permanent is to return the card to the vertical orientation, allowing it to be tapped again. To pay a cost with the “untap symbol,” the permanent must be tapped. All permanents a player controls are untapped during that player’s Untap Phase, unless otherwise specified.
+    “Until End of Turn”
+    This common phrase indicates that an ability has a duration that lasts until the cleanup step of the current turn.
+    
+    
+</p>
+
