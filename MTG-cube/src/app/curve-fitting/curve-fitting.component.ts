@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 declare var google: any;
 import { GoogleDriveProvider } from 'app/providers/google-drive-provider.service';
 import { GoogleApis } from 'googleapis';
+import { environment } from 'app/environments/environment.prod';
 
 @Component({
   selector: 'app-curve-fitting',
@@ -20,6 +21,10 @@ export class CurveFittingComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     
+  }
+
+  getLinkToCube(): string {
+    return environment.linkToCube;
   }
 
   constructor( gDrive: GoogleDriveProvider ) {
@@ -69,9 +74,10 @@ export class CurveFittingComponent implements OnInit, AfterViewInit {
   }
 
   cubeManacurveOptions = {  
+    title: 'Cube Mana Curve (interactable)',
     vAxis: { 
-      // title: 'Card Count',
-      gridlines: { count: 0 },
+      
+      // gridlines: { count: 0 },
       // viewWindowMode:'maximize',
       //         viewWindow:{
       //           min:0
@@ -80,10 +86,9 @@ export class CurveFittingComponent implements OnInit, AfterViewInit {
     },
     hAxis: {
       title: 'Mana Value',
-      
     },
 
-    // colors: ['#404040'],
+    colors: ['#ffcc00','#0099ff', '#404040', '#ff3333', '#00b33c', '#996633'],
     annotations: {
       alwaysOutside: false,
       textStyle: {
@@ -93,11 +98,11 @@ export class CurveFittingComponent implements OnInit, AfterViewInit {
       }
     },
     // legend: { position: "none" },
-    // bar: {groupWidth: "95%"},
+    bar: {groupWidth: "85%"},
     titleTextStyle: {
       bold:true
     },
-    // 'chartArea': {'width': '100%', 'height': '80%'},
+    'chartArea': {'width': '75%', 'height': '70%'},
     
   }; 
 
@@ -137,14 +142,15 @@ export class CurveFittingComponent implements OnInit, AfterViewInit {
   
   ];
   deckManacurveData = [
-    ['0-1', 5, "3", "Mana Value 0-1\nCards: 3"],
-    ['2', 9, "7", "Mana Value 2\nCards: 7"],
-    ['3', 8, "6", "Mana Value 3\nCards: 6"],
-    ['4', 6, "4", "Mana Value 4\nCards: 4"],
-    ['5', 4, "2", "Mana Value 5\nCards: 2"],
-    ['6+', 3, "1", "Mana Value 6+\nCards: 1"],
+    ['0-1', 4, "3", "Mana Value 0-1\nCards: 3"],
+    ['2', 8, "7", "Mana Value 2\nCards: 7"],
+    ['3', 7, "6", "Mana Value 3\nCards: 6"],
+    ['4', 5, "4", "Mana Value 4\nCards: 4"],
+    ['5+', 4, "3", "Mana Value 5+\nCards: 3"],
+    // ['6+', 3, "1", "Mana Value 6+\nCards: 1"],
  ];
  deckManacurveOptions = {  
+    title:'Typical Draft Mana Curve (interactable)',
     vAxis: { 
       // title: 'Card Count',
       gridlines: { count: 0 },
@@ -173,7 +179,7 @@ export class CurveFittingComponent implements OnInit, AfterViewInit {
     titleTextStyle: {
       bold:true
     },
-    'chartArea': {'width': '100%', 'height': '80%'},
+    'chartArea': {'width': '75%', 'height': '70%'},
     
   };   
   //https://docs.google.com/spreadsheets/d/1OUifd8P63Is-UhSTcnf5_fLXqwnIoEgaqKSS5uzi4Ko/edit?usp=sharing

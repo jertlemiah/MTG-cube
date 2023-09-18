@@ -50,6 +50,7 @@ export class GoogleDriveProvider {
       // already loaded data
       return Promise.resolve(this.data);
     }
+    // For testing what data looks like: https://sheets.googleapis.com/v4/spreadsheets/1OUifd8P63Is-UhSTcnf5_fLXqwnIoEgaqKSS5uzi4Ko/values/CubeManacurve?key=AIzaSyBZz744YekYkWsJQmZLHBv2RNhaBiqRTXc
     var apiKey = 'AIzaSyBZz744YekYkWsJQmZLHBv2RNhaBiqRTXc';
     var sheetid = '1OUifd8P63Is-UhSTcnf5_fLXqwnIoEgaqKSS5uzi4Ko';
 
@@ -64,7 +65,7 @@ export class GoogleDriveProvider {
       this.http.get(url)
         .pipe(map(
           (response: any) => {
-            console.log( 'response: ', response );
+            // console.log( 'response: ', response );
             // return response.json() ;
             return response;
           }

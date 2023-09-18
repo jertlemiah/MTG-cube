@@ -1,76 +1,74 @@
-<h1>Curve Fitting</h1>
-<p>
-    The basic idea of curve fitting is that <b>it doesn't matter what you play</b>, as long as you can <b>keep consistently playing things every turn</b>.
-</p>
-<p>
-    There are two main things to think about to ensure that this happens:
-</p>
-<ol type="1">
-    <li>
-        Pick 1-2 colors and stick to them - the more colors you have, the harder it is to be consistent
-    </li>
-    <li>
-        Fill out a decent mana-curve - you need to pick cards of varying mana values to do this
-    </li>
-</ol>
-<p>
-<h2><u>Pick 1-2 Colors</u></h2>
-First off, don't worry about this in the first pack: <b>be as flexible as possible early on</b> and just pick cards that look good regardless of the color.
-<br><br> However <b>by halfway through the draft</b> you should pick a primary and/or secondary color and stick to it. 
-My cube purposely does not contain any 3, 4, or 5 color cards to help make it easier to stick to fewer colors. 
-<br><br>You can definitely still change your mind or splash an additional color, but you run the risk of not getting enough cards to make that strategy work.
-The fewer colors you have, the more consistent your deck will be because you will be able to play all your cards without getting mana-screwed.
-
-
-<h2><u>The 40-Card Manacurve</u></h2>
-<p>
-    A manacurve is just the distribution of the mana value of the cards in your deck.
-    Generally speaking, the 40-card manacurve looks just like a normal distribution curve offset towards 2-3 mana a bit.
-</p>
-<p>
-    So it will look a bit like this:
-</p>
 <div >
-    <app-bar-chart 
-        [data] = deckManacurveData
-        [columnNames]=deckManacurveColumnNames
-        [options]=deckManacurveOptions
-        >
-    </app-bar-chart>
+    <h1>Curve Fitting</h1>
+    <p>
+        The basic idea of curve fitting is that <b>it doesn't matter what you play</b>, as long as you can <b>keep consistently playing things every turn</b>.
+    </p>
+    <p>
+        There are two main things to think about to ensure that this happens:
+    </p>
+    <ol type="1">
+        <li>
+            Pick 1-2 colors and stick to them - the more colors you have, the harder it is to be consistent
+        </li>
+        <li>
+            Fill out a decent mana-curve - you need to pick cards of varying mana values to do this
+        </li>
+    </ol>
+    <p>
+    <h2><u>Pick 1-2 Colors</u></h2>
+    First off, don't worry about this in the first pack: <b>be as flexible as possible early on</b> and just pick cards that look good regardless of the color.
+    <br><br> However <b>by halfway through the draft</b> you should pick a primary and/or secondary color and stick to it. 
+    My <a href={{getLinkToCube()}}>cube</a> purposely does not contain any 3, 4, or 5 color cards to help make it easier to stick to fewer colors. 
+    <br><br>You can definitely still change your mind or splash an additional color, but you run the risk of not getting enough cards to make that strategy work.
+    The fewer colors you have, the more consistent your deck will be because you will be able to play all your cards without getting mana-screwed.
+    
+    
+    <h2><u>The 40-Card Manacurve</u></h2>
+    <p>
+        A manacurve is just the distribution of the mana value of the cards in your deck.
+        Generally speaking, the 40-card manacurve looks just like a Normal (Gausssian for you math nerds) distribution curve offset towards 2-3 mana a bit.
+    </p>
+    <p>
+        So it will look a bit like this:
+    </p>
+    <div >
+        <app-bar-chart 
+            [data] = deckManacurveData
+            [columnNames]=deckManacurveColumnNames
+            [options]=deckManacurveOptions
+            >
+        </app-bar-chart>
+    </div>
+    <p>
+        While the <a href={{getLinkToCube()}}>cube</a>'s manacurve looks like this:
+    </p>
+    <div *ngIf="cubeDataLoaded">
+        <app-bar-chart 
+            [data] = cubeData
+            [columnNames]=cubeColumnNames
+            [options]=cubeManacurveOptions
+            >
+        </app-bar-chart>
+    </div>
+    <p>
+        Additionally, a 40 Magic deck should roughly follow :
+    </p>
+    <ul>
+        <li>
+            16-18 lands
+        </li>
+        <li>
+            22-24 non-lands
+        </li>
+        <li>
+            Twice as many creatures as non-creatures (so 15ish creatures, 7ish non-creatures)
+        </li>
+    </ul>
+    <p>
+        Every deck will be different though, so it’s okay to use different numbers as long as you have a plan.
+    </p>
+
+    
+    
+    
 </div>
-<p>
-    While the cube's manacurve looks like this:
-</p>
-<div *ngIf="cubeDataLoaded">
-    <app-bar-chart 
-        [data] = cubeData
-        [columnNames]=cubeColumnNames
-        [options]=cubeManacurveOptions
-        >
-    </app-bar-chart>
-</div>
-<p>
-    Additionally, a 40 Magic deck should roughly follow :
-</p>
-<ul>
-    <li>
-        16-18 lands
-    </li>
-    <li>
-        22-24 non-lands
-    </li>
-    <li>
-        Twice as many creatures as non-creatures (so 15ish creatures, 7ish non-creatures)
-    </li>
-</ul>
-<p>
-    Every deck will be different though, so it’s okay to use different numbers as long as you have a plan.
-</p>
-The 
-
-
-NOTE: Pure aggro is very difficult in a cube, and I would recommend against it. Mid-range decks are typically going to give the best results.
-
-On the next page, I have included a graph of the mana curve of the total cube just to show that it roughly follows the ideal curve.
-
-
