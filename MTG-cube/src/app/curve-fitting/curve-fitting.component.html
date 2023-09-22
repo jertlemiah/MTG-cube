@@ -16,42 +16,25 @@
     </ol>
     <p>
     <h2><u>Pick 1-2 Colors</u></h2>
-    First off, don't worry about this in the first pack: <b>be as flexible as possible early on</b> and just pick cards that look good regardless of the color.
-    <br><br> However <b>by halfway through the draft</b> you should pick a primary and/or secondary color and stick to it. 
-    My <a href={{getLinkToCube()}}>cube</a> purposely does not contain any 3, 4, or 5 color cards to help make it easier to stick to fewer colors. 
-    <br><br>You can definitely still change your mind or splash an additional color, but you run the risk of not getting enough cards to make that strategy work.
-    The fewer colors you have, the more consistent your deck will be because you will be able to play all your cards without getting mana-screwed.
+    <P>
+        First off, don't worry about this in the first pack: <b>be as flexible as possible early on</b> and just pick cards that look good regardless of the color.
+        <br><br> However <b>by halfway through the draft</b> you should pick a primary and/or secondary color and stick to it. 
+        <a href={{getLinkToCube()}}>My cube</a> purposely does not contain any 3, 4, or 5 color cards to help make it easier to stick to fewer colors. 
+        <br><br>You can definitely still change your mind or splash an additional color, but you run the risk of not getting enough cards to make that strategy work.
+        The fewer colors you have, the more consistent your deck will be because you will be able to play all your cards without getting mana-screwed.
+    </P>
     
-    
+    <br>
     <h2><u>The 40-Card Manacurve</u></h2>
     <p>
         A manacurve is just the distribution of the mana value of the cards in your deck.
-        Generally speaking, the 40-card manacurve looks just like a Normal (Gausssian for you math nerds) distribution curve offset towards 2-3 mana a bit.
+        Generally speaking, manacurves look like a Normal distribution curves centered around 2-3 mana a bit.
     </p>
     <p>
-        So it will look a bit like this:
+        The distribution for a typical 40-card deck is shown below. 1-mana removal is always good
     </p>
-    <div >
-        <app-bar-chart 
-            [data] = deckManacurveData
-            [columnNames]=deckManacurveColumnNames
-            [options]=deckManacurveOptions
-            >
-        </app-bar-chart>
-    </div>
     <p>
-        While the <a href={{getLinkToCube()}}>cube</a>'s manacurve looks like this:
-    </p>
-    <div *ngIf="cubeDataLoaded">
-        <app-bar-chart 
-            [data] = cubeData
-            [columnNames]=cubeColumnNames
-            [options]=cubeManacurveOptions
-            >
-        </app-bar-chart>
-    </div>
-    <p>
-        Additionally, a 40 Magic deck should roughly follow :
+        Additionally, a 40-deck should roughly follow the following guidelines:
     </p>
     <ul>
         <li>
@@ -61,9 +44,54 @@
             22-24 non-lands
         </li>
         <li>
-            Twice as many creatures as non-creatures (so 15ish creatures, 7ish non-creatures)
+            Twice as many creatures as non-creatures, so 15ish creatures & 8ish non-creatures (Note that the ratio is exactly opposite for spellslinger decks)
         </li>
-    </ul>
+    </ul>   
+    <div style="width: 100%; height: 400px;">
+        <div style="width: 60%; height: 100%; float: left; "> 
+            <app-bar-chart 
+            [data] = deckManacurveData
+            [columnNames]=deckManacurveColumnNames
+            [options]=deckManacurveOptions
+            >
+        </app-bar-chart>
+        </div>
+        <div *ngIf="cubeDataLoaded" style="margin-left: 59%; height: 100%;"> 
+            <app-pie-chart 
+            [data] = pieChartData
+            [columnNames]=pieChartColumns
+            [options]=pieChartSettings
+            >
+        </app-pie-chart>
+        </div>
+        
+        
+    </div>
+    <br>
+    <p>
+        <a href={{getLinkToCube()}}>The cube's</a> manacurve is also shown below. 
+        There's obviously a lot more 2 mana value multicolor cards and that's because there's no 1 mana value multicolor cards in <a href={{getLinkToCube()}}>the cube</a>.
+    </p>
+    <p>
+        Splitting the multicolor cards into each of their respective columns, we get something that's about what you would expect for the mana curve.
+    </p>
+    <div *ngIf="cubeDataLoaded">
+        <app-bar-chart 
+            [data] = cubeData
+            [columnNames]=cubeColumnNames
+            [options]=cubeManacurveOptions
+            >
+        </app-bar-chart>
+    </div>
+    
+    <div *ngIf="cubeDataLoaded">
+        <app-bar-chart 
+            [data] = cubeData
+            [columnNames]=cubeColumnNames
+            [options]=cubeManacurveOptions
+            >
+        </app-bar-chart>
+    </div>
     <p>
         Every deck will be different though, so it’s okay to use different numbers as long as you have a plan.
     </p>

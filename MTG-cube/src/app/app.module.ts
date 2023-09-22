@@ -13,6 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
 import {MatTableModule} from '@angular/material/table';
+import { PieChartComponent } from './pie-chart/pie-chart.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import {MatTableModule} from '@angular/material/table';
     CurveFittingComponent,
     BarChartComponent,
     CommonKeywordsComponent,
+    PieChartComponent,
   ],
   imports: [
     BrowserModule,

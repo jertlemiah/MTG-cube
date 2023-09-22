@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 
 import { map } from 'rxjs/operators';
 import { GoogleApis } from 'googleapis';
+declare var google: any;
 // import 'rxjs/add/operator/map'
 
 
@@ -50,6 +51,10 @@ export class GoogleDriveProvider {
       // already loaded data
       return Promise.resolve(this.data);
     }
+
+    // I would like to also get the data from:
+    // https://sheets.googleapis.com/v4/spreadsheets/1OUifd8P63Is-UhSTcnf5_fLXqwnIoEgaqKSS5uzi4Ko/values/KeywordsOutput?key=AIzaSyBZz744YekYkWsJQmZLHBv2RNhaBiqRTXc
+
     // For testing what data looks like: https://sheets.googleapis.com/v4/spreadsheets/1OUifd8P63Is-UhSTcnf5_fLXqwnIoEgaqKSS5uzi4Ko/values/CubeManacurve?key=AIzaSyBZz744YekYkWsJQmZLHBv2RNhaBiqRTXc
     var apiKey = 'AIzaSyBZz744YekYkWsJQmZLHBv2RNhaBiqRTXc';
     var sheetid = '1OUifd8P63Is-UhSTcnf5_fLXqwnIoEgaqKSS5uzi4Ko';
@@ -103,6 +108,7 @@ export class GoogleDriveProvider {
           }
 
           resolve(dataArr);
+          // resolve(rawData);
         });
       });
   }

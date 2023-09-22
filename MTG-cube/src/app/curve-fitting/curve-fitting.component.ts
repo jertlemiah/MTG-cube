@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 // imprt {G}
 // import { GoogleSheetsDbService } from 'ng-google-sheets-db';
@@ -6,6 +6,22 @@ declare var google: any;
 import { GoogleDriveProvider } from 'app/providers/google-drive-provider.service';
 import { GoogleApis } from 'googleapis';
 import { environment } from 'app/environments/environment.prod';
+
+interface IChartData
+{
+  columns:any
+  data:any
+  options:any
+}
+
+export class KEYWORD implements IChartData
+{
+    constructor(
+      public columns: any,
+      public data: any,
+      public options:any,
+    ){}
+}
 
 @Component({
   selector: 'app-curve-fitting',
@@ -54,6 +70,34 @@ export class CurveFittingComponent implements OnInit, AfterViewInit {
     // this.dataId = '2PACX-1vSG4fYJt5FirDhBDZk7io8e2NQP5KMrgkcRqFsOP0CvfEgy3U3RmO_sFZL0Dil2W9YfOfJd9vkqpMhQ';
     gDrive.load()
       .then( ( data ) => {
+        // var data = new google.visualization.DataTable();
+        //   var dataArr = new Array();
+
+        //   if( this.cubeData && this.cubeData.length > 0 ) {
+        //     this.cubeData.forEach( ( entry: any, index:any ) => {
+              
+        //       if (data.getNumberOfColumns() == 0)
+        //       {
+        //         entry.forEach((label: string) => {
+        //           if (data.getNumberOfColumns() == 0)
+        //           {
+        //             data.addColumn('string', label.toString());
+        //           }
+        //           else 
+        //           {
+        //             data.addColumn('number', label.toString());
+        //           }
+        //         });            
+        //       }
+        //       else
+        //       {
+        //         var row = [entry[0]].concat(entry.slice(1).map((i: any)=>Number(i)));
+        //         data.addRow(row);
+        //         dataArr.push(row)
+        //       }
+        //     });
+        //   }
+
         console.log("data in component: ");
         console.log(data );
         this.cubeData = data;
@@ -88,7 +132,7 @@ export class CurveFittingComponent implements OnInit, AfterViewInit {
       title: 'Mana Value',
     },
 
-    colors: ['#ffcc00','#0099ff', '#404040', '#ff3333', '#00b33c', '#996633'],
+    colors: ['#aeaeae','#0099ff', '#404040', '#ff3333', '#00b33c', '#e6ac00', '#996633'],
     annotations: {
       alwaysOutside: false,
       textStyle: {
@@ -115,6 +159,7 @@ export class CurveFittingComponent implements OnInit, AfterViewInit {
       {label: 'Black', type: 'number'},
       {label: 'Red', type: 'number'},
       {label: 'Green', type: 'number'},
+      {label: 'Multicolor', type: 'number'},
       {label: 'Colorless', type: 'number'},
     ];
     cubeData2 = [[
@@ -132,7 +177,35 @@ export class CurveFittingComponent implements OnInit, AfterViewInit {
     //   ['2016', 660, 1120, 300],
     //   ['2017', 1030, 540, 350]
     // ]
-
+    pieChartColumns = [
+      {label: 'Type', type: 'string'},
+      {label: 'Count', type: 'number'},
+      { role: 'annotation' },
+    ]
+    pieChartData = [
+      ['Lands', 17, 17],
+      ['Creatures', 15, 15],
+      ['Non-creatures', 8, 8]
+    ]
+    pieChartSettings = {  
+      title:'Typical Draft Deck Makeup (interactable)',
+      pieSliceText: 'value',
+      // colors: ['#404040'],
+      annotations: {
+        alwaysOutside: false,
+        textStyle: {
+          fontSize: 30,
+          color: '#000',
+          auraColor: 'none'
+        }
+      },
+      bar: {groupWidth: "95%"},
+      titleTextStyle: {
+        bold:true
+      },
+      'chartArea': {'width': '75%', 'height': '70%'},
+      
+    };
 
   deckManacurveColumnNames = [
     {label: 'Name', type: 'string'},
